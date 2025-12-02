@@ -97,8 +97,16 @@ self.addEventListener('push', event => {
 
 // 🔔 Clic en notificación
 self.addEventListener('notificationclick', event => {
+  console.log('🖱️ Click en notificación:', event.action);
+  
   event.notification.close();
 
+  if (event.action === 'close') {
+    // Solo cerrar la notificación
+    return;
+  }
+
+  // Acción 'open' o click en el cuerpo de la notificación
   const urlToOpen = event.notification.data?.url || 'https://wa.me/527571173738';
 
   event.waitUntil(
@@ -106,11 +114,14 @@ self.addEventListener('notificationclick', event => {
       .then(clientList => {
         // Si ya hay una ventana abierta, enfocarla
         for (let client of clientList) {
-          if (client.url === urlToOpen && 'focus' in client) {
-            return client.focus();
+          if ('focus' in client) {
+            return client.focus().then(client => {
+              // Abrir WhatsApp en nueva pestaña desde el cliente enfocado
+              return clients.openWindow(urlToOpen);
+            });
           }
         }
-        // Si no, abrir nueva ventana
+        // Si no hay ventanas, abrir WhatsApp directamente
         if (clients.openWindow) {
           return clients.openWindow(urlToOpen);
         }

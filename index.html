@@ -389,22 +389,26 @@
 <!-- ✅ REGISTRO DEL SERVICE WORKER -->
 <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('./sw.js')
-        .then(res => {
-          console.log('✅ Service Worker registrado correctamente:', res);
-        })
-        .catch(err => {
-          console.log('❌ Error al registrar el Service Worker:', err);
-        });
+    window.addEventListener('load', async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('./sw.js');
+        console.log('✅ Service Worker registrado correctamente:', registration);
+        
+        // Solicitar permiso para notificaciones push nativas
+        if ('Notification' in window && Notification.permission === 'default') {
+          const permission = await Notification.requestPermission();
+          console.log('🔔 Permiso de notificaciones:', permission);
+        }
+      } catch (err) {
+        console.log('❌ Error al registrar el Service Worker:', err);
+      }
       
       // Escuchar mensajes del Service Worker
       navigator.serviceWorker.addEventListener('message', event => {
         if (event.data && event.data.type === 'NEW_VERSION') {
           console.log('🔄 Nueva versión detectada:', event.data.newCache);
           
-          // Mostrar notificación de nueva versión
+          // Mostrar notificación toast
           mostrarToast(
             'Nueva Versión Instalada ✨',
             'CUARTOU se ha actualizado exitosamente.',
@@ -447,29 +451,55 @@ ${mensaje}`;
     // 🔗 Abrir WhatsApp
     const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
     
-    // 🔔 MOSTRAR NOTIFICACIÓN TOAST PERSONALIZADA
+    // 🔔 MOSTRAR NOTIFICACIÓN PUSH NATIVA (para móviles)
+    if ('Notification' in window && Notification.permission === 'granted') {
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.ready.then(registration => {
+          registration.showNotification('Nuevo formulario de CUARTOU 🏠', {
+            body: `${nombre} te envió un mensaje. Revisa tu WhatsApp.`,
+            icon: './img/2869209.png',
+            badge: './img/2869209.png',
+            tag: 'cuartou-form',
+            requireInteraction: true,
+            vibrate: [200, 100, 200, 100, 200],
+            data: {
+              url: url,
+              nombre: nombre,
+              dateOfArrival: Date.now()
+            },
+            actions: [
+              {
+                action: 'open',
+                title: 'Abrir WhatsApp',
+                icon: './img/2869209.png'
+              },
+              {
+                action: 'close',
+                title: 'Cerrar'
+              }
+            ]
+          });
+        });
+      }
+    }
+    
+    // También mostrar notificación toast en pantalla
     mostrarToast(
-      'Preparando WhatsApp... 📲',
-      `Hola ${nombre}, abriendo WhatsApp en 2 segundos...`,
-      '⏳',
+      'Mensaje Enviado ✅',
+      `Hola ${nombre}, abriendo WhatsApp...`,
+      '💬',
       3000
     );
 
-    // Esperar 2 segundos antes de abrir WhatsApp para ver la notificación
+    // Abrir WhatsApp después de 1.5 segundos
     setTimeout(() => {
-      mostrarToast(
-        'WhatsApp Abierto ✅',
-        '¡Tu mensaje está listo! Completa el envío en WhatsApp',
-        '💬',
-        4000
-      );
       window.open(url, '_blank');
-    }, 2000);
+    }, 1500);
 
-    // Limpiar formulario después de un momento
+    // Limpiar formulario
     setTimeout(() => {
       this.reset();
-    }, 2500);
+    }, 2000);
   });
 </script>
 
