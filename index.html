@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CUARTOU - Encuentra tu Hogar Universitario</title>
+
+  <!-- Ícono principal -->
+  <link rel="shortcut icon" href="img/2869209.png" type="image/png">
+
+  <!-- Hoja de estilos -->
+  <link rel="stylesheet" href="./css/styles.css">
+  
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <meta name="theme-color" content="#25D366" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="img/icon-192x192.png" />
+  <link rel="apple-touch-startup-image" href="img/icon-512x512.png" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- jQuery (necesario para scroll suave) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Archivo principal JS -->
+  <script src="./js/main.js" defer></script>
+  
+  <!-- Estilos inline para asegurar que las notificaciones sean visibles -->
+  <style>
+    #toast-container {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      z-index: 99999 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 15px !important;
+      pointer-events: none !important;
+    }
+    .toast-notification {
+      background: white !important;
+      color: #2C3E2E !important;
+      padding: 30px !important;
+      border-radius: 20px !important;
+      border: 2px solid #25D366 !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 20px !important;
+      min-width: 400px !important;
+      max-width: 500px !important;
+      pointer-events: auto !important;
+      opacity: 0 !important;
+      transform: scale(0.8) !important;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    .toast-notification.show {
+      opacity: 1 !important;
+      transform: scale(1) !important;
+    }
+    .toast-icon {
+      font-size: 48px !important;
+    }
+    .toast-title {
+      font-size: 20px !important;
+      font-weight: bold !important;
+    }
+    .toast-message {
+      font-size: 16px !important;
+    }
+    .toast-close {
+      background: rgba(37, 211, 102, 0.1) !important;
+      border: none !important;
+      color: #25D366 !important;
+      width: 28px !important;
+      height: 28px !important;
+      border-radius: 50% !important;
+      cursor: pointer !important;
+      font-size: 18px !important;
+      font-weight: bold !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.2s !important;
+    }
+    .toast-close:hover {
+      background: rgba(37, 211, 102, 0.2) !important;
+    }
+    @media (max-width: 600px) {
+      .toast-notification {
+        min-width: 90vw !important;
+        max-width: 90vw !important;
+        padding: 25px !important;
+      }
+      .toast-icon {
+        font-size: 40px !important;
+      }
+      .toast-title {
+        font-size: 18px !important;
+      }
+      .toast-message {
+        font-size: 14px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔔 CONTENEDOR DE NOTIFICACIONES TOAST (debe estar al inicio del body) -->
+  <div id="toast-container"></div>
+
+  <!-- Header principal -->
+  <header id="main-header">
+    <nav>
+      <div class="container nav-container">
+        <!-- Logo -->
+        <a href="#inicio" class="logo-container">
+          <img src="img/2869209.png" alt="Logo CUARTOU" class="logo">
+        </a>
+
+        <!-- Menú -->
+        <div id="menu">
+          <ul class="nav-menu">
+            <li><a href="#slider">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#servicios">Videos</a></li>
+            <li><a href="#catalogo">Alojamientos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+  <!-- Carrusel-->
+  <section id="slider">
+    <div class="slider-wrapper">
+      <div class="slider-header">
+        <h2> Encuentra tu Hogar Universitario</h2>
+        <p>Alojamientos verificados cerca de tu universidad</p>
+      </div>
+      <div class="slider-container">
+        <div class="slide">
+          <img src="img/4e5ca5656b243dac2fe859a05807d155.jpg" alt="Departamentos Compartidos">
+          <div class="slide-overlay">
+            <h3>Departamentos Compartidos</h3>
+            <p>Vive con otros estudiantes</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="img/departamentos-para-estudiantes.jpg" alt="Cerca de tu Universidad">
+          <div class="slide-overlay">
+            <h3>Cerca de tu Universidad</h3>
+            <p>Ubicaciones estratégicas</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="img/maxresdefault.jpg" alt="Ambientes Seguros">
+          <div class="slide-overlay">
+            <h3>Ambientes Seguros</h3>
+            <p>Alojamientos verificados</p>
+          </div>
+        </div>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Nosotros -->
+  <section id="nosotros">
+    <div class="container">
+      <h2 class="subheader"> Sobre Nosotros</h2>
+      <p>
+        En <strong>CUARTOU</strong> conectamos a estudiantes universitarios con su hogar ideal. 
+        Sabemos lo difícil que es encontrar un lugar cómodo, seguro y cerca de tu universidad cuando inicias esta nueva etapa.
+        Por eso, nos dedicamos a facilitar tu búsqueda de alojamiento perfecto.
+      </p>
+      <p>
+        Nuestra plataforma te ayuda a encontrar habitaciones, departamentos compartidos y residencias estudiantiles 
+        verificadas, con información clara sobre ubicación, precios y servicios incluidos. Todo en un solo lugar.
+      </p>
+    </div>
+  </section>
+
+  <!-- Videos de CUARTOU -->
+  <section id="servicios">
+    <div class="container">
+      <h2 class="subheader"> Videos - Conoce más sobre CUARTOU</h2>
+      <div class="videos-grid">
+        <div class="video">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/pQwEcaQTu4A" frameborder="0" allowfullscreen></iframe>
+          <h3>Cómo encontrar tu alojamiento ideal</h3>
+          <p>Guía paso a paso para estudiantes universitarios</p>
+        </div>
+        <div class="video">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/kdKVvgjc-jU" frameborder="0" allowfullscreen></iframe>
+          <h3>Tips para vivir en departamento compartido</h3>
+          <p>Consejos prácticos para estudiantes</p>
+        </div>
+        <div class="video">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/Px4w9m6TLbE" frameborder="0" allowfullscreen></iframe>
+          <h3>Seguridad en alojamientos estudiantiles</h3>
+          <p>Lo que debes saber antes de rentar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alojamientos Disponibles -->
+  <section id="catalogo">
+    <div class="container">
+      <h2 class="subheader"> Alojamientos Disponibles</h2>
+      <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
+        Habitaciones, departamentos y residencias cerca de las mejores universidades.
+      </p>
+      <div class="servicios-grid">
+        <div class="servicio">
+          <img src="img/4e5ca5656b243dac2fe859a05807d155.jpg" alt="Habitación Individual">
+          <h3>Habitación Individual</h3>
+          <p>Espacio privado con baño compartido, ideal para estudiantes que buscan tranquilidad.</p>
+        </div>
+        <div class="servicio">
+          <img src="img/departamentos-para-estudiantes.jpg" alt="Departamento Compartido">
+          <h3>Departamento Compartido</h3>
+          <p>Comparte con otros estudiantes y reduce costos. Cocina y sala comunes.</p>
+        </div>
+        <div class="servicio">
+          <img src="img/images.jpeg" alt="Residencia Estudiantil">
+          <h3>Residencia Estudiantil</h3>
+          <p>Ambiente universitario, con áreas de estudio, gym y eventos sociales.</p>
+        </div>
+      
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo Funciona -->
+  <section id="videos">
+    <div class="container">
+      <h2 class="subheader"> ¿Cómo Funciona?</h2>
+      <div class="servicios-grid">
+        <div class="servicio">
+          <h3 style="color: #25D366;">1️⃣ Explora</h3>
+          <p>Navega por los alojamientos disponibles cerca de tu universidad. Usa filtros para encontrar lo que necesitas.</p>
+        </div>
+        <div class="servicio">
+          <h3 style="color: #25D366;">2️⃣ Contacta</h3>
+          <p>Llena el formulario de contacto con tus datos y preferencias. Te conectaremos por WhatsApp con el propietario.</p>
+        </div>
+        <div class="servicio">
+          <h3 style="color: #25D366;">3️⃣ Agenda tu Visita</h3>
+          <p>Coordina una visita al lugar, conoce el espacio y a tus futuros compañeros. ¡Encuentra tu nuevo hogar!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📩 FORMULARIO DE CONTACTO CUARTOU -->
+<section id="contacto" class="contacto-section">
+  <div class="container">
+    <h2 class="subheader">💬 Encuentra tu Alojamiento Ideal</h2>
+    <p style="text-align: center; margin-bottom: 2rem;">Completa el formulario y te ayudaremos a encontrar el mejor lugar para ti</p>
+
+    <form id="contact-form" action="#" method="POST" class="contact-form">
+      <div class="form-group">
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: María González" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mensaje">¿Qué tipo de alojamiento buscas?</label>
+        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos tus preferencias: habitación individual, departamento compartido, zona preferida, presupuesto, etc..." required></textarea>
+      </div>
+
+      <div class="form-buttons-group">
+        <button type="submit" class="submit-btn form-btn"> Buscar mi Alojamiento</button>
+      </div>
+    </form>
+  </div>
+</section>
+  </main>
+
+  <!-- Footer Mejorado -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>🏠 CUARTOU</h3>
+          <p>Conectamos estudiantes universitarios con su hogar ideal. Tu futuro comienza aquí.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces Rápidos</h3>
+          <ul class="footer-links">
+            <li><a href="#slider">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#servicios">Videos</a></li>
+            <li><a href="#catalogo">Alojamientos</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Síguenos</h3>
+          <p>Conéctate con nosotros en redes sociales</p>
+          <ul id="redes">
+            <li>
+              <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/527571173738" target="_blank" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 CUARTOU - Encuentra tu Hogar Universitario | Todos los derechos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+<!-- 🔔 SISTEMA DE NOTIFICACIONES TOAST -->
+<script>
+  // Función para mostrar notificación toast personalizada
+  function mostrarToast(titulo, mensaje, icono = '🏠', duracion = 5000) {
+    const container = document.getElementById('toast-container');
+    
+    if (!container) {
+      console.error('❌ No se encontró el contenedor toast-container');
+      return;
+    }
+    
+    // Crear elemento de notificación
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+      <div class="toast-icon">${icono}</div>
+      <div class="toast-content">
+        <div class="toast-title">${titulo}</div>
+        <div class="toast-message">${mensaje}</div>
+      </div>
+      <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+    `;
+    
+    // Agregar al contenedor
+    container.appendChild(toast);
+    
+    // Animar entrada
+    setTimeout(() => {
+      toast.classList.add('show');
+    }, 10);
+    
+    // Auto-cerrar después de la duración
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, duracion);
+  }
+</script>
+
+<!-- ✅ REGISTRO DEL SERVICE WORKER -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('./sw.js')
+        .then(res => {
+          console.log('✅ Service Worker registrado correctamente:', res);
+        })
+        .catch(err => {
+          console.log('❌ Error al registrar el Service Worker:', err);
+        });
+      
+      // Escuchar mensajes del Service Worker
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data && event.data.type === 'NEW_VERSION') {
+          console.log('🔄 Nueva versión detectada:', event.data.newCache);
+          
+          // Mostrar notificación de nueva versión
+          mostrarToast(
+            'Nueva Versión Instalada ✨',
+            'CUARTOU se ha actualizado exitosamente.',
+            '🔄',
+            6000
+          );
+        }
+      });
+    });
+  }
+</script>
+
+<!-- ✅ FORMULARIO + WHATSAPP + NOTIFICACIÓN TOAST -->
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const correo = document.getElementById('email').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+
+    // Validación
+    if (!nombre || !correo || !mensaje) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    // 📦 Texto a enviar por WhatsApp
+    const texto = `*Nueva Consulta CUARTOU* 🏠
+
+*Nombre:* ${nombre}
+*Email:* ${correo}
+
+*Mensaje:*
+${mensaje}`;
+
+    // 👉 Tu número de WhatsApp
+    const numeroWhatsApp = '527571173738';
+
+    // 🔗 Abrir WhatsApp
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+    
+    // 🔔 MOSTRAR NOTIFICACIÓN TOAST PERSONALIZADA
+    mostrarToast(
+      'Preparando WhatsApp... 📲',
+      `Hola ${nombre}, abriendo WhatsApp en 2 segundos...`,
+      '⏳',
+      3000
+    );
+
+    // Esperar 2 segundos antes de abrir WhatsApp para ver la notificación
+    setTimeout(() => {
+      mostrarToast(
+        'WhatsApp Abierto ✅',
+        '¡Tu mensaje está listo! Completa el envío en WhatsApp',
+        '💬',
+        4000
+      );
+      window.open(url, '_blank');
+    }, 2000);
+
+    // Limpiar formulario después de un momento
+    setTimeout(() => {
+      this.reset();
+    }, 2500);
+  });
+</script>
+
+
+</body>
+</html>
