@@ -1,7 +1,7 @@
 // -------------------- SERVICE WORKER CUARTOU --------------------
 
 // Nombre y versión del caché
-const CACHE_NAME = 'v11_CUARTOU_2025_06';
+const CACHE_NAME = 'v1_CUARTOU_2025';
 
 // Archivos a cachear
 const urlsToCache = [

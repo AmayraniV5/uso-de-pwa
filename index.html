@@ -8,12 +8,19 @@
   <!-- Ícono principal -->
   <link rel="shortcut icon" href="img/2869209.png" type="image/png">
 
-  <!-- Hoja de estilos -->
+  <!-- Tailwind CSS (Framework Visual) -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <!-- Hoja de estilos personalizada -->
   <link rel="stylesheet" href="./css/styles.css">
   
   <!-- Font Awesome para iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Animate.css para animaciones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
+  <!-- Metadatos PWA -->
   <meta name="theme-color" content="#25D366" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -31,6 +38,138 @@
   
   <!-- Estilos inline para asegurar que las notificaciones sean visibles -->
   <style>
+    /* Estilos mejorados con Tailwind */
+    :root {
+      --primary-color: #25D366;
+      --secondary-color: #2C3E2E;
+      --accent-color: #FF6B35;
+      --light-color: #F8F9FA;
+      --dark-color: #212529;
+    }
+    
+    /* Modal styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 99998;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      color: #666;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+    
+    .modal-close:hover {
+      background: rgba(0, 0, 0, 0.2);
+      transform: rotate(90deg);
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 99998;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      color: #666;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+    
+    .modal-close:hover {
+      background: rgba(0, 0, 0, 0.2);
+      transform: rotate(90deg);
+    }
+
+    /* Contenedor toast */
     #toast-container {
       position: fixed !important;
       top: 50% !important;
@@ -42,6 +181,7 @@
       gap: 15px !important;
       pointer-events: none !important;
     }
+    
     .toast-notification {
       background: white !important;
       color: #2C3E2E !important;
@@ -59,20 +199,25 @@
       transform: scale(0.8) !important;
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     }
+    
     .toast-notification.show {
       opacity: 1 !important;
       transform: scale(1) !important;
     }
+    
     .toast-icon {
       font-size: 48px !important;
     }
+    
     .toast-title {
       font-size: 20px !important;
       font-weight: bold !important;
     }
+    
     .toast-message {
       font-size: 16px !important;
     }
+    
     .toast-close {
       background: rgba(37, 211, 102, 0.1) !important;
       border: none !important;
@@ -88,9 +233,11 @@
       justify-content: center !important;
       transition: all 0.2s !important;
     }
+    
     .toast-close:hover {
       background: rgba(37, 211, 102, 0.2) !important;
     }
+    
     @media (max-width: 600px) {
       .toast-notification {
         min-width: 90vw !important;
@@ -107,242 +254,556 @@
         font-size: 14px !important;
       }
     }
+    
+    /* Estilos personalizados adicionales */
+    .gradient-bg {
+      background: linear-gradient(135deg, #25D366 0%, #2C3E2E 100%);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border-left: 5px solid #25D366;
+    }
+    
+    .university-badge {
+      display: inline-block;
+      background: rgba(37, 211, 102, 0.1);
+      color: #25D366;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      margin: 0.25rem;
+      font-weight: 500;
+    }
   </style>
 </head>
-<body>
-  <!-- 🔔 CONTENEDOR DE NOTIFICACIONES TOAST (debe estar al inicio del body) -->
+<body class="font-sans bg-gray-50">
+  <!-- 🔔 CONTENEDOR DE NOTIFICACIONES TOAST -->
   <div id="toast-container"></div>
 
-  <!-- Header principal -->
-  <header id="main-header">
+  <!-- Header principal mejorado -->
+  <header id="main-header" class="sticky top-0 z-50 shadow-md bg-white">
     <nav>
-      <div class="container nav-container">
+      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <!-- Logo -->
-        <a href="#inicio" class="logo-container">
-          <img src="img/2869209.png" alt="Logo CUARTOU" class="logo">
+        <a href="#inicio" class="flex items-center space-x-3">
+          <img src="img/2869209.png" alt="Logo CUARTOU" class="h-12 w-12">
+          <div>
+            <span class="text-2xl font-bold text-gray-800">CUARTOU</span>
+            <p class="text-xs text-gray-500">Tu hogar universitario</p>
+          </div>
         </a>
 
-        <!-- Menú -->
-        <div id="menu">
-          <ul class="nav-menu">
-            <li><a href="#slider">Inicio</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#servicios">Videos</a></li>
-            <li><a href="#catalogo">Alojamientos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-          </ul>
+        <!-- Menú para desktop -->
+        <div class="hidden md:flex space-x-8">
+          <a href="#slider" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Inicio</a>
+          <a href="#nosotros" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Nosotros</a>
+          <a href="#servicios" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Videos</a>
+          <a href="#catalogo" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Alojamientos</a>
+          <a href="#estadisticas" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Estadísticas</a>
+          <a href="#contacto" class="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 transition duration-300">Contacto</a>
+        </div>
+
+        <!-- Botón menú móvil -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-700 text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Menú móvil -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+        <div class="flex flex-col space-y-4 p-6">
+          <a href="#slider" class="text-gray-700 hover:text-green-600 font-medium">Inicio</a>
+          <a href="#nosotros" class="text-gray-700 hover:text-green-600 font-medium">Nosotros</a>
+          <a href="#servicios" class="text-gray-700 hover:text-green-600 font-medium">Videos</a>
+          <a href="#catalogo" class="text-gray-700 hover:text-green-600 font-medium">Alojamientos</a>
+          <a href="#estadisticas" class="text-gray-700 hover:text-green-600 font-medium">Estadísticas</a>
+          <a href="#testimonios" class="text-gray-700 hover:text-green-600 font-medium">Testimonios</a>
+          <a href="#contacto" class="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 text-center">Contacto</a>
         </div>
       </div>
     </nav>
   </header>
 
   <main>
-  <!-- Carrusel-->
-  <section id="slider">
-    <div class="slider-wrapper">
-      <div class="slider-header">
-        <h2> Encuentra tu Hogar Universitario</h2>
-        <p>Alojamientos verificados cerca de tu universidad</p>
+    <!-- Banner de bienvenida -->
+    <section class="gradient-bg text-white py-16 md:py-24">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 animate__animated animate__fadeInDown">Encuentra tu Hogar Universitario</h1>
+        <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">Alojamientos verificados cerca de tu universidad</p>
+        <a href="#catalogo" class="bg-white text-green-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition duration-300 animate__animated animate__pulse animate__delay-2s">
+          Explorar Alojamientos
+        </a>
       </div>
-      <div class="slider-container">
-        <div class="slide">
-          <img src="img/4e5ca5656b243dac2fe859a05807d155.jpg" alt="Departamentos Compartidos">
-          <div class="slide-overlay">
-            <h3>Departamentos Compartidos</h3>
-            <p>Vive con otros estudiantes</p>
+    </section>
+
+    <!-- Carrusel mejorado -->
+    <section id="slider" class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Nuestras Recomendaciones</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Los mejores alojamientos seleccionados para estudiantes como tú</p>
+        </div>
+        
+        <div class="slider-wrapper relative overflow-hidden rounded-2xl shadow-xl">
+          <div class="slider-container flex transition-transform duration-500 ease-in-out">
+            <div class="slide min-w-full relative">
+              <img src="img/4e5ca5656b243dac2fe859a05807d155.jpg" alt="Departamentos Compartidos" class="w-full h-96 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div class="p-8 text-white">
+                  <h3 class="text-2xl font-bold mb-2">Departamentos Compartidos</h3>
+                  <p class="text-lg">Vive con otros estudiantes y comparte experiencias</p>
+                </div>
+              </div>
+            </div>
+            <div class="slide min-w-full relative">
+              <img src="img/departamentos-para-estudiantes.jpg" alt="Cerca de tu Universidad" class="w-full h-96 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div class="p-8 text-white">
+                  <h3 class="text-2xl font-bold mb-2">Cerca de tu Universidad</h3>
+                  <p class="text-lg">Ubicaciones estratégicas para ahorrar tiempo</p>
+
+                </div>
+              </div>
+            </div>
+            <div class="slide min-w-full relative">
+              <img src="img/maxresdefault.jpg" alt="Ambientes Seguros" class="w-full h-96 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div class="p-8 text-white">
+                  <h3 class="text-2xl font-bold mb-2">Ambientes Seguros</h3>
+                  <p class="text-lg">Alojamientos verificados y con seguridad 24/7</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Controles del carrusel -->
+          <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-gray-800 p-2 rounded-full hover:bg-white transition duration-300">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-gray-800 p-2 rounded-full hover:bg-white transition duration-300">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Nosotros mejorada -->
+    <section id="nosotros" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Sobre Nosotros</h2>
+          <div class="w-24 h-1 bg-green-600 mx-auto mb-6"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Tu Hogar Lejos de Casa</h3>
+            <p class="text-gray-600 mb-4">
+              En <span class="font-bold text-green-600">CUARTOU</span> conectamos a estudiantes universitarios con su hogar ideal. 
+              Sabemos lo difícil que es encontrar un lugar cómodo, seguro y cerca de tu universidad cuando inicias esta nueva etapa.
+            </p>
+            <p class="text-gray-600 mb-6">
+              Nuestra plataforma te ayuda a encontrar habitaciones, departamentos compartidos y residencias estudiantiles 
+              verificadas, con información clara sobre ubicación, precios y servicios incluidos. Todo en un solo lugar.
+            </p>
+            <div class="flex space-x-4">
+              <div class="text-center">
+                <div class="text-3xl font-bold text-green-600">500+</div>
+                <div class="text-gray-600">Alojamientos</div>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-green-600">50+</div>
+                <div class="text-gray-600">Universidades</div>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-green-600">2000+</div>
+                <div class="text-gray-600">Estudiantes</div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                 alt="Estudiantes felices" class="rounded-2xl shadow-lg">
           </div>
         </div>
-        <div class="slide">
-          <img src="img/departamentos-para-estudiantes.jpg" alt="Cerca de tu Universidad">
-          <div class="slide-overlay">
-            <h3>Cerca de tu Universidad</h3>
-            <p>Ubicaciones estratégicas</p>
+      </div>
+    </section>
+
+  
+    <!-- Videos de CUARTOU mejorados -->
+    <section id="servicios" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Videos - Conoce más sobre CUARTOU</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Aprende cómo encontrar el alojamiento perfecto para tu etapa universitaria</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="video bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+            <div class="relative pb-[56.25%]"> <!-- 16:9 Aspect Ratio -->
+              <iframe class="absolute top-0 left-0 w-full h-full" 
+                      src="https://www.youtube.com/embed/pQwEcaQTu4A" 
+                      frameborder="0" 
+                      allowfullscreen></iframe>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Cómo encontrar tu alojamiento ideal</h3>
+              <p class="text-gray-600">Guía paso a paso para estudiantes universitarios</p>
+            </div>
+          </div>
+          
+          <div class="video bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+            <div class="relative pb-[56.25%]"> <!-- 16:9 Aspect Ratio -->
+              <iframe class="absolute top-0 left-0 w-full h-full" 
+                      src="https://www.youtube.com/embed/kdKVvgjc-jU" 
+                      frameborder="0" 
+                      allowfullscreen></iframe>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Tips para vivir en departamento compartido</h3>
+              <p class="text-gray-600">Consejos prácticos para estudiantes</p>
+            </div>
+          </div>
+          
+          <div class="video bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+            <div class="relative pb-[56.25%]"> <!-- 16:9 Aspect Ratio -->
+              <iframe class="absolute top-0 left-0 w-full h-full" 
+                      src="https://www.youtube.com/embed/Px4w9m6TLbE" 
+                      frameborder="0" 
+                      allowfullscreen></iframe>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Seguridad en alojamientos estudiantiles</h3>
+              <p class="text-gray-600">Lo que debes saber antes de rentar</p>
+            </div>
           </div>
         </div>
-        <div class="slide">
-          <img src="img/maxresdefault.jpg" alt="Ambientes Seguros">
-          <div class="slide-overlay">
-            <h3>Ambientes Seguros</h3>
-            <p>Alojamientos verificados</p>
+      </div>
+    </section>
+
+    <!-- Estadísticas (Nueva sección) -->
+    <section id="estadisticas" class="py-16 gradient-bg text-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">CUARTOU en Números</h2>
+          <p class="text-xl opacity-90">Impacto positivo en la comunidad estudiantil</p>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="stat-card">
+            <div class="text-4xl font-bold text-green-600 mb-2">95%</div>
+            <div class="text-gray-600">Satisfacción estudiantil</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="text-4xl font-bold text-green-600 mb-2">48h</div>
+            <div class="text-gray-600">Tiempo promedio de respuesta</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="text-4xl font-bold text-green-600 mb-2">100%</div>
+            <div class="text-gray-600">Alojamientos verificados</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="text-4xl font-bold text-green-600 mb-2">24/7</div>
+            <div class="text-gray-600">Soporte disponible</div>
           </div>
         </div>
       </div>
-      <div class="slider-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+    </section>
+
+    <!-- Alojamientos Disponibles mejorados -->
+    <section id="catalogo" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Alojamientos Disponibles</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Habitaciones, departamentos y residencias cerca de las mejores universidades</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="servicio bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+            <img src="img/4e5ca5656b243dac2fe859a05807d155.jpg" alt="Habitación Individual" class="w-full h-56 object-cover">
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Habitación Individual</h3>
+                <span class="bg-green-100 text-green-800 text-sm font-bold px-3 py-1 rounded-full">$3,500/mes</span>
+              </div>
+              <p class="text-gray-600 mb-4">Espacio privado con baño compartido, ideal para estudiantes que buscan tranquilidad.</p>
+              <ul class="text-gray-600 mb-4 space-y-1">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Wi-Fi incluido</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Servicios básicos</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Cocina compartida</li>
+              </ul>
+              <button class="ver-detalles w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition duration-300" 
+                data-title="Habitación Individual"
+                data-price="$3,500/mes"
+                data-description="Espacio privado con baño compartido, ideal para estudiantes que buscan tranquilidad y concentración en sus estudios."
+                data-image="img/4e5ca5656b243dac2fe859a05807d155.jpg"
+                data-features="Wi-Fi de alta velocidad incluido,Servicios básicos (agua, luz, gas),Cocina compartida totalmente equipada,Escritorio y silla ergonómica,Clóset amplio,Ventanas con buena iluminación">
+                Ver detalles
+              </button>
+            </div>
+          </div>
+          
+          <div class="servicio bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+            <img src="img/departamentos-para-estudiantes.jpg" alt="Departamento Compartido" class="w-full h-56 object-cover">
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Departamento Compartido</h3>
+                <span class="bg-green-100 text-green-800 text-sm font-bold px-3 py-1 rounded-full">$2,800/mes</span>
+              </div>
+              <p class="text-gray-600 mb-4">Comparte con otros estudiantes y reduce costos. Cocina y sala comunes.</p>
+              <ul class="text-gray-600 mb-4 space-y-1">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Amueblado</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Lavandería</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Área de estudio</li>
+              </ul>
+              <button class="ver-detalles w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition duration-300"
+                data-title="Departamento Compartido"
+                data-price="$2,800/mes"
+                data-description="Comparte con otros estudiantes y reduce costos. Incluye cocina completa, sala común y excelente ambiente estudiantil."
+                data-image="img/departamentos-para-estudiantes.jpg"
+                data-features="Completamente amueblado,Lavandería en el edificio,Área de estudio tranquila,2-3 compañeros de cuarto,Sala y comedor compartidos,Internet de alta velocidad">
+                Ver detalles
+              </button>
+            </div>
+          </div>
+          
+          <div class="servicio bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+            <img src="img/images.jpeg" alt="Residencia Estudiantil" class="w-full h-56 object-cover">
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Residencia Estudiantil</h3>
+                <span class="bg-green-100 text-green-800 text-sm font-bold px-3 py-1 rounded-full">$4,200/mes</span>
+              </div>
+              <p class="text-gray-600 mb-4">Ambiente universitario, con áreas de estudio, gym y eventos sociales.</p>
+              <ul class="text-gray-600 mb-4 space-y-1">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Gimnasio</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Seguridad 24/7</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Eventos sociales</li>
+              </ul>
+              <button class="ver-detalles w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition duration-300"
+                data-title="Residencia Estudiantil"
+                data-price="$4,200/mes"
+                data-description="Ambiente universitario premium con áreas de estudio, gimnasio, eventos sociales y la mejor experiencia estudiantil."
+                data-image="img/images.jpeg"
+                data-features="Gimnasio completamente equipado,Seguridad 24/7 con cámaras,Eventos sociales mensuales,Sala de juegos y recreación,Biblioteca y salas de estudio,Servicios de limpieza incluidos">
+                Ver detalles
+              </button>
+            </div>
+          </div>
+        </div>
+        
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Sección Nosotros -->
-  <section id="nosotros">
-    <div class="container">
-      <h2 class="subheader"> Sobre Nosotros</h2>
-      <p>
-        En <strong>CUARTOU</strong> conectamos a estudiantes universitarios con su hogar ideal. 
-        Sabemos lo difícil que es encontrar un lugar cómodo, seguro y cerca de tu universidad cuando inicias esta nueva etapa.
-        Por eso, nos dedicamos a facilitar tu búsqueda de alojamiento perfecto.
-      </p>
-      <p>
-        Nuestra plataforma te ayuda a encontrar habitaciones, departamentos compartidos y residencias estudiantiles 
-        verificadas, con información clara sobre ubicación, precios y servicios incluidos. Todo en un solo lugar.
-      </p>
-    </div>
-  </section>
-
-  <!-- Videos de CUARTOU -->
-  <section id="servicios">
-    <div class="container">
-      <h2 class="subheader"> Videos - Conoce más sobre CUARTOU</h2>
-      <div class="videos-grid">
-        <div class="video">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/pQwEcaQTu4A" frameborder="0" allowfullscreen></iframe>
-          <h3>Cómo encontrar tu alojamiento ideal</h3>
-          <p>Guía paso a paso para estudiantes universitarios</p>
+    <!-- Cómo Funciona mejorado -->
+    <section id="videos" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Cómo Funciona?</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Sigue estos sencillos pasos para encontrar tu hogar universitario</p>
         </div>
-        <div class="video">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/kdKVvgjc-jU" frameborder="0" allowfullscreen></iframe>
-          <h3>Tips para vivir en departamento compartido</h3>
-          <p>Consejos prácticos para estudiantes</p>
-        </div>
-        <div class="video">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/Px4w9m6TLbE" frameborder="0" allowfullscreen></iframe>
-          <h3>Seguridad en alojamientos estudiantiles</h3>
-          <p>Lo que debes saber antes de rentar</p>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="text-center p-8 bg-white rounded-2xl shadow-lg card-hover">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Explora</h3>
+            <p class="text-gray-600">Navega por los alojamientos disponibles cerca de tu universidad. Usa filtros para encontrar lo que necesitas.</p>
+          </div>
+          
+          <div class="text-center p-8 bg-white rounded-2xl shadow-lg card-hover">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Contacta</h3>
+            <p class="text-gray-600">Llena el formulario de contacto con tus datos y preferencias. Te conectaremos por WhatsApp con el propietario.</p>
+          </div>
+          
+          <div class="text-center p-8 bg-white rounded-2xl shadow-lg card-hover">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Agenda tu Visita</h3>
+            <p class="text-gray-600">Coordina una visita al lugar, conoce el espacio y a tus futuros compañeros. ¡Encuentra tu nuevo hogar!</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Alojamientos Disponibles -->
-  <section id="catalogo">
-    <div class="container">
-      <h2 class="subheader"> Alojamientos Disponibles</h2>
-      <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
-        Habitaciones, departamentos y residencias cerca de las mejores universidades.
-      </p>
-      <div class="servicios-grid">
-        <div class="servicio">
-          <img src="img/4e5ca5656b243dac2fe859a05807d155.jpg" alt="Habitación Individual">
-          <h3>Habitación Individual</h3>
-          <p>Espacio privado con baño compartido, ideal para estudiantes que buscan tranquilidad.</p>
+    <!-- 📩 FORMULARIO DE CONTACTO CUARTOU mejorado -->
+    <section id="contacto" class="py-16 bg-white">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">💬 Encuentra tu Alojamiento Ideal</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Completa el formulario y te ayudaremos a encontrar el mejor lugar para ti</p>
         </div>
-        <div class="servicio">
-          <img src="img/departamentos-para-estudiantes.jpg" alt="Departamento Compartido">
-          <h3>Departamento Compartido</h3>
-          <p>Comparte con otros estudiantes y reduce costos. Cocina y sala comunes.</p>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Contáctanos</h3>
+            <p class="text-gray-600 mb-6">Estamos aquí para ayudarte a encontrar el alojamiento perfecto para tu etapa universitaria.</p>
+            
+            <div class="space-y-6">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-phone text-green-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">Teléfono</p>
+                  <p class="text-gray-600">+52 757 117 3738</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-envelope text-green-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">Email</p>
+                  <p class="text-gray-600">info@cuartou.com</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-map-marker-alt text-green-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">Ubicación</p>
+                  <p class="text-gray-600">Ciudad de México</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <form id="contact-form" action="#" method="POST" class="space-y-6">
+              <div>
+                <label for="nombre" class="block text-gray-700 font-medium mb-2">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: María González" 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300" required>
+              </div>
+
+              <div>
+                <label for="email" class="block text-gray-700 font-medium mb-2">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300" required>
+              </div>
+
+              <div>
+                <label for="mensaje" class="block text-gray-700 font-medium mb-2">¿Qué tipo de alojamiento buscas?</label>
+                <textarea id="mensaje" name="mensaje" rows="5" 
+                          placeholder="Cuéntanos tus preferencias: habitación individual, departamento compartido, zona preferida, presupuesto, etc..." 
+                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300" required></textarea>
+              </div>
+
+              <div>
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-4 rounded-lg hover:bg-green-700 transition duration-300 transform hover:-translate-y-1">
+                  <i class="fas fa-search mr-2"></i> Buscar mi Alojamiento
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="servicio">
-          <img src="img/images.jpeg" alt="Residencia Estudiantil">
-          <h3>Residencia Estudiantil</h3>
-          <p>Ambiente universitario, con áreas de estudio, gym y eventos sociales.</p>
-        </div>
-      
       </div>
-    </div>
-  </section>
-
-  <!-- Cómo Funciona -->
-  <section id="videos">
-    <div class="container">
-      <h2 class="subheader"> ¿Cómo Funciona?</h2>
-      <div class="servicios-grid">
-        <div class="servicio">
-          <h3 style="color: #25D366;">1️⃣ Explora</h3>
-          <p>Navega por los alojamientos disponibles cerca de tu universidad. Usa filtros para encontrar lo que necesitas.</p>
-        </div>
-        <div class="servicio">
-          <h3 style="color: #25D366;">2️⃣ Contacta</h3>
-          <p>Llena el formulario de contacto con tus datos y preferencias. Te conectaremos por WhatsApp con el propietario.</p>
-        </div>
-        <div class="servicio">
-          <h3 style="color: #25D366;">3️⃣ Agenda tu Visita</h3>
-          <p>Coordina una visita al lugar, conoce el espacio y a tus futuros compañeros. ¡Encuentra tu nuevo hogar!</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 📩 FORMULARIO DE CONTACTO CUARTOU -->
-<section id="contacto" class="contacto-section">
-  <div class="container">
-    <h2 class="subheader">💬 Encuentra tu Alojamiento Ideal</h2>
-    <p style="text-align: center; margin-bottom: 2rem;">Completa el formulario y te ayudaremos a encontrar el mejor lugar para ti</p>
-
-    <form id="contact-form" action="#" method="POST" class="contact-form">
-      <div class="form-group">
-        <label for="nombre">Nombre Completo:</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej: María González" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
-      </div>
-
-      <div class="form-group">
-        <label for="mensaje">¿Qué tipo de alojamiento buscas?</label>
-        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos tus preferencias: habitación individual, departamento compartido, zona preferida, presupuesto, etc..." required></textarea>
-      </div>
-
-      <div class="form-buttons-group">
-        <button type="submit" class="submit-btn form-btn"> Buscar mi Alojamiento</button>
-      </div>
-    </form>
-  </div>
-</section>
+    </section>
   </main>
 
-  <!-- Footer Mejorado -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>🏠 CUARTOU</h3>
-          <p>Conectamos estudiantes universitarios con su hogar ideal. Tu futuro comienza aquí.</p>
+  <!-- Modal de detalles de alojamiento -->
+  <div id="alojamiento-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="cerrarModal()">&times;</button>
+      <img id="modal-imagen" src="" alt="" class="w-full h-64 object-cover rounded-t-2xl">
+      <div class="p-8">
+        <div class="flex justify-between items-start mb-4">
+          <h2 id="modal-titulo" class="text-3xl font-bold text-gray-800"></h2>
+          <span id="modal-precio" class="bg-green-100 text-green-800 text-xl font-bold px-4 py-2 rounded-full"></span>
+        </div>
+        <p id="modal-descripcion" class="text-gray-600 text-lg mb-6"></p>
+        
+        <h3 class="text-xl font-bold text-gray-800 mb-4">
+          <i class="fas fa-star text-yellow-500 mr-2"></i>Características incluidas:
+        </h3>
+        <ul id="modal-features" class="space-y-3 mb-8">
+          <!-- Features se agregarán dinámicamente -->
+        </ul>
+        
+        <div class="bg-gray-50 p-6 rounded-xl mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-3">
+            <i class="fas fa-map-marker-alt text-green-600 mr-2"></i>Ubicación
+          </h3>
+          <p class="text-gray-600">A 5 minutos de las principales universidades de la zona. Excelente transporte público.</p>
         </div>
         
-        <div class="footer-section">
-          <h3>Enlaces Rápidos</h3>
-          <ul class="footer-links">
-            <li><a href="#slider">Inicio</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#servicios">Videos</a></li>
-            <li><a href="#catalogo">Alojamientos</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-section">
-          <h3>Síguenos</h3>
-          <p>Conéctate con nosotros en redes sociales</p>
-          <ul id="redes">
-            <li>
-              <a href="https://facebook.com" target="_blank" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li>
-              <a href="https://wa.me/527571173738" target="_blank" aria-label="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-              </a>
-            </li>
-            <li>
-              <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-              </a>
-            </li>
-            <li>
-              <a href="https://twitter.com" target="_blank" aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-          </ul>
+        <div class="flex gap-4">
+          <button onclick="irAlFormulario()" class="flex-1 bg-green-600 text-white py-4 rounded-lg hover:bg-green-700 transition duration-300 font-bold text-lg">
+            <i class="fab fa-whatsapp mr-2"></i>Contactar por WhatsApp
+          </button>
+          <button onclick="cerrarModal()" class="px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition duration-300 font-bold">
+            Cerrar
+          </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Footer mejorado -->
+  <footer class="bg-gray-800 text-white pt-12 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4 text-white">🏠 CUARTOU</h3>
+          <p class="text-gray-300 mb-4">Conectamos estudiantes universitarios con su hogar ideal. Tu futuro comienza aquí.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-green-400 transition duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-gray-300 hover:text-green-400 transition duration-300"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-gray-300 hover:text-green-400 transition duration-300"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/527571173738" target="_blank" class="text-gray-300 hover:text-green-400 transition duration-300"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-4">Enlaces Rápidos</h3>
+          <ul class="space-y-2">
+            <li><a href="#slider" class="text-gray-300 hover:text-green-400 transition duration-300">Inicio</a></li>
+            <li><a href="#nosotros" class="text-gray-300 hover:text-green-400 transition duration-300">Nosotros</a></li>
+            <li><a href="#servicios" class="text-gray-300 hover:text-green-400 transition duration-300">Videos</a></li>
+            <li><a href="#catalogo" class="text-gray-300 hover:text-green-400 transition duration-300">Alojamientos</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-4">Servicios</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition duration-300">Habitaciones Individuales</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition duration-300">Departamentos Compartidos</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition duration-300">Residencias Estudiantiles</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition duration-300">Asesoría Personalizada</a></li>
+          </ul>
+        </div>
+    </div>
       
-      <div class="footer-bottom">
-        <p>&copy; 2025 CUARTOU - Encuentra tu Hogar Universitario | Todos los derechos reservados</p>
+      <div class="border-t border-gray-700 pt-8 text-center">
+        <p class="text-gray-300">&copy; 2025 CUARTOU - Encuentra tu Hogar Universitario | Todos los derechos reservados</p>
       </div>
     </div>
   </footer>
@@ -406,13 +867,13 @@
       // Escuchar mensajes del Service Worker
       navigator.serviceWorker.addEventListener('message', event => {
         if (event.data && event.data.type === 'NEW_VERSION') {
-          console.log('🔄 Nueva versión detectada:', event.data.newCache);
+          console.log(' Nueva versión detectada:', event.data.newCache);
           
           // Mostrar notificación toast
           mostrarToast(
-            'Nueva Versión Instalada ✨',
+            'Nueva Versión Instalada ',
             'CUARTOU se ha actualizado exitosamente.',
-            '🔄',
+            '',
             6000
           );
         }
@@ -432,12 +893,17 @@
 
     // Validación
     if (!nombre || !correo || !mensaje) {
-      alert('Por favor completa todos los campos');
+      mostrarToast(
+        'Campos Incompletos ⚠️',
+        'Por favor completa todos los campos del formulario.',
+        '⚠️',
+        3000
+      );
       return;
     }
 
     // 📦 Texto a enviar por WhatsApp
-    const texto = `*Nueva Consulta CUARTOU* 🏠
+    const texto = `*Nueva Consulta CUARTOU* 
 
 *Nombre:* ${nombre}
 *Email:* ${correo}
@@ -483,10 +949,10 @@ ${mensaje}`;
       }
     }
     
-    // También mostrar notificación toast en pantalla
+    // Mostrar notificación toast en pantalla
     mostrarToast(
-      'Mensaje Enviado ✅',
-      `Hola ${nombre}, abriendo WhatsApp...`,
+      'Mensaje Enviado ',
+      `Hola ${nombre}, estamos abriendo WhatsApp para que puedas contactarnos.`,
       '💬',
       3000
     );
@@ -503,6 +969,218 @@ ${mensaje}`;
   });
 </script>
 
+<!-- JavaScript para funcionalidades adicionales -->
+<script>
+  // Menú móvil
+  document.getElementById('mobile-menu-button').addEventListener('click', function() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+    this.innerHTML = menu.classList.contains('hidden') ? 
+      '<i class="fas fa-bars"></i>' : 
+      '<i class="fas fa-times"></i>';
+  });
+
+  // Carrusel simple
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  
+  document.getElementById('next-slide')?.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  });
+  
+  document.getElementById('prev-slide')?.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  });
+  
+  function updateSlider() {
+    const sliderContainer = document.querySelector('.slider-container');
+    sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Actualizar puntos indicadores
+    document.querySelectorAll('.slider-dots .dot').forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentSlide);
+    });
+  }
+  
+  // Auto-slide cada 5 segundos
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  }, 5000);
+
+  // Scroll suave para enlaces internos
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        // Cerrar menú móvil si está abierto
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      }
+    });
+  });
+
+  // Mostrar notificación de bienvenida
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      mostrarToast(
+        '¡Bienvenido a CUARTOU! ',
+        'Encuentra tu hogar universitario ideal con nosotros.',
+        '',
+        4000
+      );
+    }, 1000);
+  });
+
+  // ==================== MODAL DE ALOJAMIENTOS ====================
+  let alojamientoActual = null;
+
+  // Abrir modal con información del alojamiento
+  function abrirModal(button) {
+    const modal = document.getElementById('alojamiento-modal');
+    const titulo = button.getAttribute('data-title');
+    const precio = button.getAttribute('data-price');
+    const descripcion = button.getAttribute('data-description');
+    const imagen = button.getAttribute('data-image');
+    const features = button.getAttribute('data-features').split(',');
+    
+    // Guardar información actual
+    alojamientoActual = {
+      titulo: titulo,
+      precio: precio
+    };
+    
+    // Llenar modal con información
+    document.getElementById('modal-titulo').textContent = titulo;
+    document.getElementById('modal-precio').textContent = precio;
+    document.getElementById('modal-descripcion').textContent = descripcion;
+    document.getElementById('modal-imagen').src = imagen;
+    document.getElementById('modal-imagen').alt = titulo;
+    
+    // Agregar características
+    const featuresList = document.getElementById('modal-features');
+    featuresList.innerHTML = '';
+    features.forEach(feature => {
+      const li = document.createElement('li');
+      li.className = 'flex items-start';
+      li.innerHTML = `
+        <i class="fas fa-check-circle text-green-600 mr-3 mt-1"></i>
+        <span class="text-gray-700">${feature.trim()}</span>
+      `;
+      featuresList.appendChild(li);
+    });
+    
+    // Mostrar modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+  }
+
+  // Cerrar modal
+  function cerrarModal() {
+    const modal = document.getElementById('alojamiento-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restaurar scroll del body
+    alojamientoActual = null;
+  }
+
+  // Ir al formulario de contacto desde el modal
+  function irAlFormulario() {
+    // Mostrar notificación
+    mostrarToast(
+      'Redirigiendo al Formulario ',
+      'Te llevamos al formulario de contacto para completar tu consulta',
+      '',
+      2000
+    );
+    
+    // Cerrar modal
+    cerrarModal();
+    
+    // Esperar un momento y hacer scroll al formulario
+    setTimeout(() => {
+      const formulario = document.getElementById('contacto');
+      if (formulario) {
+        window.scrollTo({
+          top: formulario.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        // Opcional: Pre-llenar el mensaje con información del alojamiento
+        if (alojamientoActual) {
+          const mensajeField = document.getElementById('mensaje');
+          if (mensajeField) {
+            mensajeField.value = `Estoy interesado/a en: ${alojamientoActual.titulo} (${alojamientoActual.precio}). Me gustaría obtener más información.`;
+            mensajeField.focus();
+          }
+        }
+      }
+    }, 500);
+  }
+
+  // Contactar por WhatsApp desde el modal
+  function contactarWhatsAppModal() {
+    if (!alojamientoActual) return;
+    
+    const texto = `*Consulta sobre: ${alojamientoActual.titulo}* 🏠
+
+*Precio:* ${alojamientoActual.precio}
+
+Hola, estoy interesado/a en este alojamiento. Me gustaría obtener más información.`;
+
+    const numeroWhatsApp = '527571173738';
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+    
+    // Mostrar notificación
+    mostrarToast(
+      'Abriendo WhatsApp... ',
+      'Te conectaremos con un asesor en un momento',
+      '',
+      3000
+    );
+    
+    setTimeout(() => {
+      window.open(url, '_blank');
+      cerrarModal();
+    }, 1500);
+  }
+
+  // Cerrar modal al hacer clic fuera del contenido
+  document.getElementById('alojamiento-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      cerrarModal();
+    }
+  });
+
+  // Cerrar modal con tecla ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      cerrarModal();
+    }
+  });
+
+  // Agregar event listeners a todos los botones "Ver detalles"
+  document.querySelectorAll('.ver-detalles').forEach(button => {
+    button.addEventListener('click', function() {
+      abrirModal(this);
+    });
+  });
+</script>
 
 </body>
 </html>
